@@ -41,7 +41,7 @@ function HomePage() {
                   <EditableInput
                     isOnEdit={isEditMode}
                     style="ml-1 text-sm font-normal"
-                    value={formData.betValue}
+                    value={'R$' + formData.betValue}
                     onChange={txt => setFormData(state => ({ ...state, betValue: txt }))}
                   />
                 </p>
