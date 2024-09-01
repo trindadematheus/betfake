@@ -3,9 +3,10 @@ type EditableInputProps = {
     onChange: (txt: string) => void;
     isOnEdit: boolean
     style: string
+    prefix?: string
 }
 
-function EditableInput({ value, onChange, isOnEdit, style }: EditableInputProps) {
+function EditableInput({ value, onChange, isOnEdit, style, prefix }: EditableInputProps) {
     return (
         <>
             {isOnEdit ? (
@@ -18,7 +19,7 @@ function EditableInput({ value, onChange, isOnEdit, style }: EditableInputProps)
                 />
             ) : (
                 <span className={style} >
-                    {value}
+                    {prefix}{value}
                 </span>
             )}
         </>

@@ -5,6 +5,7 @@ import { ChevronUp } from "lucide-react";
 
 import Icon2 from "@/components/2icon";
 import EditableInput from "@/components/EditableInput";
+import { formatOdd, normalizeCurrency, parseNumber } from "@/utils/masks";
 
 function HomePage() {
   const [isEditMode, setIsEditMode] = useState(false)
@@ -41,9 +42,12 @@ function HomePage() {
 
                   <EditableInput
                     isOnEdit={isEditMode}
-                    style="ml-1 text-sm font-normal"
+                    style="ml-1 text-sm font-normal text-[#555]"
                     value={formData.betValue}
-                    onChange={txt => setFormData(state => ({ ...state, betValue: txt }))}
+                    prefix="R$"
+                    onChange={txt =>
+                      setFormData(state => ({ ...state, betValue: normalizeCurrency(txt) }))
+                    }
                   />
                 </p>
 
@@ -55,12 +59,12 @@ function HomePage() {
                 />
               </div>
 
-              <div className=" flex items-center">
+              <div className="flex items-center">
                 <EditableInput
                   isOnEdit={isEditMode}
-                  style="text-sm"
+                  style="text-sm text-[#555]"
                   value={formData.odd}
-                  onChange={txt => setFormData(state => ({ ...state, odd: txt }))}
+                  onChange={txt => setFormData(state => ({ ...state, odd: formatOdd(txt) }))}
                 />
                 <p className="ml-4">
                   <ChevronUp size={20} />
@@ -92,6 +96,13 @@ function HomePage() {
                   {formData.odd}
                 </p>
               </div>
+            </div>
+
+            <div className="p-4 flex justify-between items-center">
+              <p className="text-sm font-bold text-slate-800">Ganhos potenciais</p>
+              <p className="text-sm font-bold text-slate-800">
+                R${normalizeCurrency((parseFloat(formData.odd) * parseNumber(formData.betValue)).toFixed(2))}
+              </p>
             </div>
           </div>
         </div>
