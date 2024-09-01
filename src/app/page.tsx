@@ -38,13 +38,15 @@ function HomePage() {
               <div className="">
                 <p className="text-sm font-bold text-slate-800">
                   <span>Simples</span>
+
                   <EditableInput
                     isOnEdit={isEditMode}
                     style="ml-1 text-sm font-normal"
-                    value={'R$' + formData.betValue}
+                    value={formData.betValue}
                     onChange={txt => setFormData(state => ({ ...state, betValue: txt }))}
                   />
                 </p>
+
                 <EditableInput
                   isOnEdit={isEditMode}
                   style="text-xs text-slate-400"
