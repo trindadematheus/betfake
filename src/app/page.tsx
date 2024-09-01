@@ -45,6 +45,7 @@ function HomePage() {
                     style="ml-1 text-sm font-normal text-[#555]"
                     value={formData.betValue}
                     prefix="R$"
+                    label="Valor da aposta"
                     onChange={txt =>
                       setFormData(state => ({ ...state, betValue: normalizeCurrency(txt) }))
                     }
@@ -55,6 +56,7 @@ function HomePage() {
                   isOnEdit={isEditMode}
                   style="text-xs text-slate-400"
                   value={formData.betTeam}
+                  label="Time Apostado"
                   onChange={txt => setFormData(state => ({ ...state, betTeam: txt }))}
                 />
               </div>
@@ -64,6 +66,7 @@ function HomePage() {
                   isOnEdit={isEditMode}
                   style="text-sm text-[#555]"
                   value={formData.odd}
+                  label="Odd"
                   onChange={txt => setFormData(state => ({ ...state, odd: formatOdd(txt) }))}
                 />
                 <p className="ml-4">
@@ -87,6 +90,7 @@ function HomePage() {
                     isOnEdit={isEditMode}
                     style="text-xs"
                     value={formData.match}
+                    label="Partida (Time Casa - Time Fora)"
                     onChange={txt => setFormData(state => ({ ...state, match: txt }))}
                   />
                 </div>
