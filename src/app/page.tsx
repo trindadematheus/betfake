@@ -35,7 +35,7 @@ function HomePage() {
 
           <div className="bg-white rounded-md">
             <div className="border-b-2 p-4 flex justify-between items-center">
-              <div className="">
+              <div className="flex flex-col">
                 <p className="text-sm font-bold text-slate-800">
                   <span>Simples</span>
 
