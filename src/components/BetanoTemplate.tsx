@@ -3,15 +3,10 @@ import { ChevronUp } from "lucide-react"
 import WonIcon from "./WonIcon"
 import { normalizeCurrency, parseNumber } from "@/utils/masks"
 import LoseIcon from "./LoseIcon"
+import { Bet } from "@/app/betano/page"
 
 type BetanoTemplateProps = {
-    bet: {
-        odd: string
-        betValue: string
-        betTeam: string
-        match: string
-        isBetWon: boolean
-    }
+    bet: Bet
 }
 
 function BetanoTemplate({ bet }: BetanoTemplateProps) {
@@ -34,19 +29,19 @@ function BetanoTemplate({ bet }: BetanoTemplateProps) {
                     </div>
 
                     <div className="flex items-center">
-                        {bet.isBetWon ?
-                            (
-                                <p className="bg-[rgb(237,251,243)] rounded-2xl border border-[rgb(28,104,72)] text-xs font-bold py-[2px] px-2 text-[rgb(28,104,72)]">Ganhou</p>
-                            )
-                            : (
-                                // <p className="text-sm text-[#333]">
-                                //     {bet.odd}
-                                // </p>
-                                <p className="bg-[rgb(254,241,244)] rounded-2xl border border-[#ba1030] text-xs font-bold py-[2px] px-2 text-[#ba1030]">Perdida</p>
-                            )}
-                        <p className="ml-4">
-                            <ChevronUp size={20} />
-                        </p>
+                        {bet.betStatus === 'won' && <p className="bg-[rgb(237,251,243)] rounded-2xl border border-[rgb(28,104,72)] text-xs font-bold py-[2px] px-2 text-[rgb(28,104,72)]">Ganhou</p>}
+                        {bet.betStatus === 'lose' && <p className="bg-[rgb(254,241,244)] rounded-2xl border border-[#ba1030] text-xs font-bold py-[2px] px-2 text-[#ba1030]">Perdida</p>}
+                        {bet.betStatus === 'made' && (
+                            <>
+                                <p className="text-sm text-[#333]">
+                                    {bet.odd}
+                                </p>
+
+                                <p className="ml-4">
+                                    <ChevronUp size={20} />
+                                </p>
+                            </>
+                        )}
                     </div>
                 </div>
 
@@ -57,8 +52,8 @@ function BetanoTemplate({ bet }: BetanoTemplateProps) {
                             <p className="font-bold text-xs flex items-center">
                                 <span className="mr-1">{bet.betTeam}</span>
                                 {/* {showAnticipatedResultIcon && <Icon2 />} */}
-                                {bet.isBetWon && <WonIcon />}
-                                {!bet.isBetWon && <LoseIcon />}
+                                {bet.betStatus === 'won' && <WonIcon />}
+                                {bet.betStatus === 'lose' && <LoseIcon />}
                             </p>
 
                             <p className="text-slate-400 text-xs">Resultado final</p>
@@ -74,17 +69,11 @@ function BetanoTemplate({ bet }: BetanoTemplateProps) {
                 </div>
 
                 <div className="p-4 flex justify-between items-center">
-                    <p className="text-sm font-bold text-slate-800">Ganhos</p>
                     <p className="text-sm font-bold text-slate-800">
-                        {bet.isBetWon ? (
-                            <>
-                                R$ {normalizeCurrency((parseFloat(bet.odd) * parseNumber(bet.betValue)).toFixed(2))}
-                            </>
-                        ) : (
-                            <>
-                                R$ 0,00
-                            </>
-                        )}
+                        {bet.betStatus === 'made' ? 'Ganhos potenciais' : 'Ganhos'}
+                    </p>
+                    <p className="text-sm font-bold text-slate-800">
+                        {bet.betStatus === 'lose' ? 'R$ 0,00' : `R$ ${normalizeCurrency((parseFloat(bet.odd) * parseNumber(bet.betValue)).toFixed(2))}`}
                     </p>
                 </div>
             </div>

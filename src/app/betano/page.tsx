@@ -1,12 +1,9 @@
 'use client'
 
 import { useState } from "react";
-import { ChevronUp } from "lucide-react";
 import { Ubuntu } from "next/font/google";
 
-import Icon2 from "@/components/2icon";
-import { formatOdd, normalizeCurrency, parseNumber } from "@/utils/masks";
-import WonIcon from "@/components/WonIcon";
+import { formatOdd, normalizeCurrency } from "@/utils/masks";
 import TextInput from "@/components/TextInput";
 import BetanoTemplate from "@/components/BetanoTemplate";
 
@@ -15,23 +12,24 @@ const ubuntu = Ubuntu({
     subsets: ["latin"]
 });
 
+type BetStatus = 'won' | 'lose' | 'made'
+
+export type Bet = {
+    odd: string
+    betValue: string
+    betTeam: string
+    match: string
+    betStatus: BetStatus
+}
+
 function BetanoPage() {
-    const [isEditMode, setIsEditMode] = useState(false)
-    const [isBetWon, setIsBetWon] = useState(false)
     const [showAnticipatedResultIcon, setShowAnticipatedResultIcon] = useState(true)
-    // const [bets, setBets] = useState([{
-    //     odd: '2.37',
-    //     betValue: '10,00',
-    //     betTeam: 'Vitória',
-    //     match: 'Vitória - Vasco da Gama',
-    //     isBetWon: false
-    // }])
-    const [bet, setBet] = useState({
+    const [bet, setBet] = useState<Bet>({
         odd: '2.37',
         betValue: '10,00',
         betTeam: 'Vitória',
         match: 'Vitória - Vasco da Gama',
-        isBetWon: false
+        betStatus: 'made'
     })
 
     return (
@@ -42,18 +40,18 @@ function BetanoPage() {
 
                     <div className="border bg-white p-4 rounded-md flex flex-col gap-4 mt-4">
                         <div className="flex items-center gap-2">
-                            <input className="cursor-pointer" checked={bet.isBetWon} onChange={() => setBet(state => ({ ...state, isBetWon: true }))} type="checkbox" id="won" />
-                            <label className="cursor-pointer text-sm w-full" htmlFor="won">Aposta vencida</label>
+                            <input className="cursor-pointer" checked={bet.betStatus === 'made'} onChange={() => setBet(state => ({ ...state, betStatus: 'made' }))} type="checkbox" id="bet" />
+                            <label className="cursor-pointer text-sm w-full" htmlFor="bet">Aposta Feita</label>
                         </div>
                         <div className="flex items-center gap-2">
-                            <input className="cursor-pointer" checked={!bet.isBetWon} onChange={() => setBet(state => ({ ...state, isBetWon: false }))} type="checkbox" id="lose" />
-                            <label className="cursor-pointer text-sm w-full" htmlFor="lose">Aposta perdida</label>
+                            <input className="cursor-pointer" checked={bet.betStatus === 'won'} onChange={() => setBet(state => ({ ...state, betStatus: 'won' }))} type="checkbox" id="won" />
+                            <label className="cursor-pointer text-sm w-full" htmlFor="won">Aposta Vencida</label>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <input className="cursor-pointer" checked={bet.betStatus === 'lose'} onChange={() => setBet(state => ({ ...state, betStatus: 'lose' }))} type="checkbox" id="lose" />
+                            <label className="cursor-pointer text-sm w-full" htmlFor="lose">Aposta Perdida</label>
                         </div>
                     </div>
-
-                    {/* <button className="mt-4 w-full bg-orange-600 p-1 rounded-lg text-white" >
-                        + Adicionar Aposta
-                    </button> */}
 
                     <div className="border bg-white p-4 rounded-md flex flex-col gap-3 mt-4">
                         <TextInput
