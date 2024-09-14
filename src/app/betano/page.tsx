@@ -66,6 +66,16 @@ function BetanoPage() {
                             value={bet.odd}
                             onChange={evt => setBet(state => ({ ...state, odd: formatOdd(evt.target.value) }))}
                         />
+                        <TextInput
+                            label="Time Vencedor"
+                            value={bet.betTeam}
+                            onChange={evt => setBet(state => ({ ...state, betTeam: evt.target.value }))}
+                        />
+                        <TextInput
+                            label="Partida"
+                            value={bet.match}
+                            onChange={evt => setBet(state => ({ ...state, match: evt.target.value }))}
+                        />
                     </div>
                 </div>
             </div>
