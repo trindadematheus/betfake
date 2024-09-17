@@ -21,6 +21,5 @@ export const formatOdd = (input: string) => {
 };
 
 export function parseNumber(str: string) {
-  // Remove o separador de milhar (ponto) e substitui a vírgula pela ponto
   return parseFloat(str.replace(/\./g, "").replace(",", "."));
 }
