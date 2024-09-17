@@ -7,7 +7,7 @@ const items = [
   {
     href: '/betano',
     title: 'Betano',
-    image_src: '#',
+    image_src: "/betano.webp",
     disabled: false,
   },
   {
@@ -34,7 +34,7 @@ function Home() {
   return (
     <>
       <div className={`max-w-3xl mx-auto p-6 ${inter.className}`}>
-        <div className="h-72 md:h-96 flex items-center justify-center">
+        <div className="h-72 flex items-center justify-center">
           <h1 className="text-2xl md:text-5xl font-bold text-center">Seja o Rei das Apostas Sem <br />👑Gastar 1 Único Real💸</h1>
         </div>
 
@@ -50,7 +50,11 @@ function Home() {
               <div
                 className={`border p-4 rounded-lg transition-all duration-300 ${item.disabled ? 'hover:border' : 'hover:border-purple-500'}`}
               >
-                <img className="h-28 md:h-32 bg-gray-200 rounded-t-lg" src="" alt="" />
+                <img
+                  className="h-28 md:h-32 object-cover w-full bg-gray-200 rounded-t-lg"
+                  src={item.image_src}
+                  alt=""
+                />
                 <h2 className={`font-bold text-lg mt-4`}>{item.title}</h2>
               </div>
             </Link>

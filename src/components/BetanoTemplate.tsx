@@ -1,10 +1,10 @@
 import { ChevronUp } from "lucide-react"
+import { useMemo } from "react"
 
 import WonIcon from "./WonIcon"
+import { Bet, BetStatus } from "@/app/betano/page"
 import { normalizeCurrency, parseNumber } from "@/utils/masks"
 import LoseIcon from "./LoseIcon"
-import { Bet, BetStatus } from "@/app/betano/page"
-import { useMemo } from "react"
 
 type BetanoTemplateProps = {
     bets: Bet[]
@@ -43,7 +43,7 @@ function BetanoTemplate({ bets, status }: BetanoTemplateProps) {
                                             case 1:
                                                 return 'Tripla'
                                             default:
-                                                return 'Multipla'
+                                                return 'Múltiplas'
                                         }
                                     })()}
                                 </>
