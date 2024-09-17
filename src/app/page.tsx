@@ -1,5 +1,6 @@
 import { Inter } from "next/font/google";
 import Link from "next/link";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -61,6 +62,12 @@ function Home() {
           ))}
         </div>
       </div>
+
+      <Script data-cfasync="false" type="text/javascript">
+        {`
+         (function(d,z,s){s.src='https://'+d+'/400/'+z;try{(document.body||document.documentElement).appendChild(s)}catch(e){}})('aupoafto.com',8110505,document.createElement('script'))
+        `}
+      </Script>
     </>
   );
 }
